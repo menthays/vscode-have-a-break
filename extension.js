@@ -30,6 +30,13 @@ function activate(context) {
 				location: 15,
 			}, () => {
 				return popImage()
+					.then(() => {
+						vscode.window.showInformationMessage('That\'s it')
+						vscode.commands.executeCommand('extension.setTimer')
+					}).catch(err => {
+						vscode.window.showErrorMessage('There seems to be some problems')
+						vscode.commands.executeCommand('extension.setTimer')
+					})
 			})
 			
 		}, Number(minutes) * 60 * 1000)
