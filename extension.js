@@ -19,7 +19,8 @@ function activate(context) {
 		clearTimeout(timer)
 		const minutes = await vscode.window.showInputBox({
 			value: 25,
-			prompt: 'How long will next break come?'
+			prompt: 'How long will next break come? (Either integer or decimal)',
+			ignoreFocusOut: true,
 		})
 		if (!minutes) {
 			return
