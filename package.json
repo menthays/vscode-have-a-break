@@ -1,6 +1,6 @@
 {
-  "name": "break",
-  "displayName": "Break Reminder",
+  "name": "have-a-break",
+  "displayName": "Have a Break",
   "description": "A VS Code extension that reminds you to take regular breaks with motivational quotes and beautiful images",
   "version": "0.0.1",
   "repository": {
@@ -14,20 +14,21 @@
     "Other"
   ],
   "activationEvents": [
-    "*"
+    "onStartupFinished",
+    "onCommand:have-a-break.startBreak"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "have-a-break-next.startBreak",
+        "command": "have-a-break.startBreak",
         "title": "Break: Take a break"
       }
     ],
     "configuration": {
       "title": "Break Reminder",
       "properties": {
-        "have-a-break-next.breakInterval": {
+        "have-a-break.breakInterval": {
           "type": "number",
           "default": 30,
           "description": "Break interval in minutes"
@@ -36,21 +37,20 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "pnpm run package",
-    "compile": "pnpm run check-types && pnpm run lint && node esbuild.js",
+    "vscode:prepublish": "npm run compile",
+    "compile": "npm run check-types && npm run lint && node esbuild.js",
     "watch": "npm-run-all -p watch:*",
     "watch:esbuild": "node esbuild.js --watch",
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
-    "package": "pnpm run check-types && pnpm run lint && node esbuild.js --production",
+    "package": "npm run check-types && npm run lint && node esbuild.js --production",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
-    "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/glob": "^8.1.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
     "@types/vscode": "^1.97.0",
@@ -58,7 +58,6 @@
     "@typescript-eslint/parser": "^8.22.0",
     "esbuild": "^0.24.2",
     "eslint": "^9.19.0",
-    "glob": "^8.1.0",
     "mocha": "^10.2.0",
     "npm-run-all": "^4.1.5",
     "typescript": "^5.7.3",
